@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CS Slideshow</title>
+    <style type="text/css">
+      .container {
+        max-width: 500px;
+        padding-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    {% extends "layout.html" %}
+    {% block content %}
+      <h3> This is the start of my child template</h3>
+      <p>My string: {{my_string}}</p>
+        {% for n in my_list %}
+        <img src= {{ url_for('static', filename = n) }}>
+        {% endfor %}
+      <h3> This is the end of my child template</h3>
+    {% endblock %}
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
