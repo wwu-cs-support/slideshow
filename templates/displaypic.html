@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <body>
-          <img src= {{ url_for('static', filename = picture) }}>
-        </body>
-    </head>
+    <body>
+      {% extends "layout.html" %}
+      {% block content %}
+        {% for pic in pic_list %}
+          <img src= {{ url_for('static', filename = pic) }}>
+        {% endfor %}
+      {% endblock %}
+    </body>
 </html>
