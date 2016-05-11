@@ -5,7 +5,7 @@ from flask import Flask, render_template, session, g, abort, flash, request, red
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = '/home/taftk2/CS_Support/jinja/uploads/'
-app.config['ALLOWED_EXTENSIONS'] = set(['png'])
+app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg', 'tiff', 'gif'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
@@ -21,6 +21,8 @@ def upload_picture():
         filename = secure_filename(pic.filename)
         pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return redirect(url_for('uploaded_file', filename=filename))
+    else:
+        return render_template('extension_error.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
