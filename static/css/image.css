@@ -1,0 +1,10 @@
+html, body {
+    margin: 0;
+    background: url(/static/pictures/pookie.jpeg) no-repeat center center fixed;
+    background-color: black;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+
+}
