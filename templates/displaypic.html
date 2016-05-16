@@ -5,7 +5,7 @@
         <body>
           {% block content %}
             {% for pic in pic_list %}
-            {#<img src= {{ url_for('static', filename = pic) }} alt="" class="html">#} 
+                <img src= {{ url_for('static', filename = pic) }} alt="">
             {% endfor %}
           {% endblock %}
         </body>
