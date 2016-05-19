@@ -97,11 +97,9 @@ So you want to add (or perhaps remove) some code. Great! Please adhere to these
 guidelines to ensure coherence throughout the application.
 
 ### Coding Style
-- Follow most [PEP8] guidelines. There can be some flexibility with regard to
-  line length and naming, but in general PEP8 provides a solid set of rules.
+- Use two spaces for indentation in html files.
 
-- Strive to follow Tim Peters' _The Zen of Python_ (`import this`) where
-  possible.
+- Use extenal files for any javascipt or css code.
 
 ### Version Control
 - [Fork][forking] the [central repository][repo] and work from a clone of your
@@ -119,7 +117,6 @@ guidelines to ensure coherence throughout the application.
 [repo]: https://gitlab.cs.wwu.edu/cs-support/slideshow
 [merge request]: https://gitlab.cs.wwu.edu/help/workflow/forking_workflow.md#merging-upstream
 [GitLab Flow]: http://doc.gitlab.com/ee/workflow/gitlab_flow.html
-[PEP8]: https://www.python.org/dev/peps/pep-0008/
 [forking]: https://gitlab.cs.wwu.edu/help/workflow/forking_workflow.md
 [topic branch]: https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#Topic-Branches
 [Nicolas Gallagher]: http://nicolasgallagher.com/
