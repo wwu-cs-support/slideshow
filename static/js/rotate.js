@@ -1,16 +1,14 @@
 var body = document.getElementsByTagName("body")[0];
 var path = "/static/pictures/";
 var allPics = ['pookie.jpeg', 'pool.jpg', 'sea_urchin.tiff', 'singapore.png', 'snake.png', 'standing_buddha.jpg'];
-var i = 0;
-var intervalID = window.setInterval(slideshow, 5000);
+var timeout = 0;
 
-function slideshow() {
-    var pic = "url(" + path + allPics[i] + ")";
-    body.style.backgroundImage = pic;
-    if(i == (allPics.length -1)){
-        i = 0;
-    }
-    else{
-        i++;
-    }
+for (pic of allPics){
+    slideshow(pic, timeout);
+    timeout = timeout + 2000;
+}
+
+function slideshow(pic, timeout) {
+    var pic = "url(" + path + pic + ")";
+    window.setTimeout(function(){ body.style.backgroundImage = pic;}, timeout)
 }
