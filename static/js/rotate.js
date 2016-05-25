@@ -9,6 +9,6 @@ for (pic of allPics){
 }
 
 function slideshow(pic, timeout) {
-    var pic = "url(" + path + pic + ")";
-    window.setTimeout(function(){ body.style.backgroundImage = pic;}, timeout)
+    var pic = `url(" ${path}${pic} ")`;
+    window.setTimeout(() => { body.style.backgroundImage = pic;}, timeout)
 }

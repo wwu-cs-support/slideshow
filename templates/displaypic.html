@@ -4,9 +4,6 @@
         <link rel="stylesheet" type="text/css" href="/static/css/image.css">
         <body>
           {% block content %}
-            {% for pic in pic_list %}
-                <img src= {{ url_for('static', filename = pic) }} alt="">
-            {% endfor %}
             <script src="/static/js/rotate.js"></script>
           {% endblock %}
         </body>

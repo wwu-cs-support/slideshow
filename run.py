@@ -31,7 +31,7 @@ def uploaded_file(filename):
 @app.route("/")
 def template_test():
     pic_list = [f for f in os.listdir("static/pictures/") if os.path.isfile(f)]
-    return render_template('displaypic.html', pic_list=pic_list)
+    return render_template('displaypic.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
