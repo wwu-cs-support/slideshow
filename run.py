@@ -29,7 +29,7 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/")
-def template_test():
+def slideshow():
     pic_list = [f for f in os.listdir("static/pictures/") if os.path.isfile(f)]
     return render_template('displaypic.html')
 
