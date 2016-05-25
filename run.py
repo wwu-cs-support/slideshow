@@ -22,7 +22,7 @@ def upload_picture():
         pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return redirect(url_for('uploaded_file', filename=filename))
     else:
-        return render_template('extension_error.html')
+        return render_template('extension_error.html', extensions=app.config['ALLOWED_EXTENSIONS'])
 
 @app.route('/static/pictures/<filename>')
 def uploaded_file(filename):
