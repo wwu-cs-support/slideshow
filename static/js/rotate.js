@@ -1,14 +1,27 @@
-var body = document.getElementsByTagName("body")[0];
-var path = "/static/pictures/";
-var allPics = ['pookie.jpeg', 'pool.jpg', 'sea_urchin.tiff', 'singapore.png', 'snake.png', 'standing_buddha.jpg'];
+"use strict";
+
 var timeout = 0;
 
-for (pic of allPics){
-    slideshow(pic, timeout);
-    timeout = timeout + 2000;
+function displaySlide(pic) {
+    let url = `url("${pic.path}")`;
+    let body = document.getElementsByTagName('body')[0];
+    timeout = timeout + parseInt(pic.duration, 10);
+    window.setTimeout(() => { body.style.backgroundImage = url; }, timeout);
 }
 
-function slideshow(pic, timeout) {
-    var pic = `url(" ${path}${pic} ")`;
-    window.setTimeout(() => { body.style.backgroundImage = pic;}, timeout)
+
+function loadPictures(url) {
+  let req = new XMLHttpRequest();
+  req.onreadystatechange = () => {
+    if (req.readyState === XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        let metadata = JSON.parse(req.responseText);
+        metadata.pictures.forEach(displaySlide);
+        loadPictures(url);
+      }
+    }
+  }
+
+  req.open('GET', '/pictures', true);
+  req.send();
 }

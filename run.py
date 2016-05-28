@@ -1,10 +1,15 @@
 import os
+import json
 from werkzeug import secure_filename
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import (Flask, Response, render_template, request, redirect,
+        url_for, send_from_directory)
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static/pictures')
+app_dir = os.path.join(os.path.dirname(__file__))
+
+app.config['UPLOAD_METADATA'] = os.path.join(app_dir, 'static/metadata.json')
+app.config['UPLOAD_FOLDER'] = os.path.join(app_dir, 'static/pictures')
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'gif'}
 
 def allowed_file(filename):
@@ -29,8 +34,13 @@ def uploaded_file(filename):
 
 @app.route("/")
 def slideshow():
-    pic_list = [f for f in os.listdir("static/pictures/") if os.path.isfile(f)]
     return render_template('displaypic.html')
+
+@app.route("/pictures")
+def pictures():
+    with open(app.config['UPLOAD_METADATA'], 'r') as mf:
+        return Response(mf.read(), mimetype='application/json')
+
 
 if __name__ == '__main__':
     debug = True if os.environ.get('SLIDESHOW_DEBUG') else False

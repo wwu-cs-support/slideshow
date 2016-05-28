@@ -1,0 +1,28 @@
+{
+  "pictures": [
+    {
+      "path": "/static/pictures/pookie.jpeg", 
+      "duration": "0"
+    },
+    {
+      "path": "/static/pictures/sea_urchin.tiff", 
+      "duration": "1000"
+    },
+    {
+      "path": "/static/pictures/pool.jpg", 
+      "duration": "1500"
+    },
+    {
+      "path": "/static/pictures/standing_buddha.jpg",
+      "duration": "2000"
+    },
+    {
+      "path": "/static/pictures/singapore.png", 
+      "duration": "2500"
+    },
+    {
+      "path": "/static/pictures/snake.png", 
+      "duration": "4100"
+    }
+  ]
+}
