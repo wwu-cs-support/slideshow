@@ -10,7 +10,7 @@ app_dir = os.path.join(os.path.dirname(__file__))
 
 app.config['UPLOAD_METADATA'] = os.path.join(app_dir, 'static/metadata.json')
 app.config['UPLOAD_FOLDER'] = os.path.join(app_dir, 'static/pictures')
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'gif', 'mov'}
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'GIF', 'gif', 'mov'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
@@ -19,18 +19,23 @@ def allowed_file(filename):
 def upload_picture():
     if request.method == 'POST':
         pic=request.files['file']
+        duration=request.form['duration']
+
         if pic and allowed_file(pic.filename):
             filename = secure_filename(pic.filename)
             pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
             entry = {}
             entry['path'] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            entry['duration'] = 1000
-            with open(app.config['UPLOAD_METADATA'], 'r') as json_file:
-                metadata = json.load(json_file)
+            if duration:
+                entry['duration'] = duration
+            else:
+                entry['duration'] = 5000
 
-            metadata['pictures'].append(entry)
-            with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
+            with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
+                metadata = json.load(json_file)
+                json_file.seek(0)
+                metadata['pictures'].append(entry)
                 json.dump(metadata, json_file, indent=2)
 
             return render_template('success.html', filename=filename)
