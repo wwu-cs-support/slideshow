@@ -10,7 +10,7 @@ app_dir = os.path.join(os.path.dirname(__file__))
 
 app.config['UPLOAD_METADATA'] = os.path.join(app_dir, 'static/metadata.json')
 app.config['UPLOAD_FOLDER'] = os.path.join(app_dir, 'static/pictures')
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'gif'}
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'gif', 'mov'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
@@ -22,7 +22,18 @@ def upload_picture():
         if pic and allowed_file(pic.filename):
             filename = secure_filename(pic.filename)
             pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
+
+            entry = {}
+            entry['path'] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            entry['duration'] = 1000
+            with open(app.config['UPLOAD_METADATA'], 'r') as json_file:
+                metadata = json.load(json_file)
+
+            metadata['pictures'].append(entry)
+            with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
+                json.dump(metadata, json_file, indent=2)
+
+            return render_template('success.html', filename=filename)
         else:
             return render_template('extension_error.html', extensions=app.config['ALLOWED_EXTENSIONS'])
     else:
