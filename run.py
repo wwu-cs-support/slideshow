@@ -18,8 +18,11 @@ def allowed_file(filename):
 @app.route("/upload", methods=['POST', 'GET'])
 def upload_picture():
     if request.method == 'POST':
+        duration = 5000
+        order = 1
         pic=request.files['file']
-        duration=request.form['duration']
+        duration=int(request.form['duration'])
+        order=request.form['order']
 
         if pic and allowed_file(pic.filename):
             filename = secure_filename(pic.filename)
@@ -27,15 +30,15 @@ def upload_picture():
 
             entry = {}
             entry['path'] = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            if duration:
-                entry['duration'] = duration
-            else:
-                entry['duration'] = 5000
+            entry['duration'] = duration
 
             with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
                 metadata = json.load(json_file)
                 json_file.seek(0)
-                metadata['pictures'].append(entry)
+                if order != "last":
+                    metadata['pictures'].insert((int(order)-1), entry)
+                else:
+                    metadata['pictures'].insert(len(metadata['pictures']), entry)
                 json.dump(metadata, json_file, indent=2)
 
             return render_template('success.html', filename=filename)
