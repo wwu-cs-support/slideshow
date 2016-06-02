@@ -5,8 +5,8 @@ var timeout = 0;
 function displaySlide(pic) {
     let url = `url("${pic.path}")`;
     let body = document.getElementsByTagName('body')[0];
-    window.setTimeout(() => { body.style.backgroundImage = url; }, timeout);
-    timeout = timeout + parseInt(pic.duration, 10);
+    setTimeout(() => { body.style.backgroundImage = url; }, timeout);
+    timeout = timeout + pic.duration;
 }
 
 //Total time of slideshow.
@@ -14,7 +14,7 @@ function displaySlide(pic) {
 function getTotalTimeout(metadata) {
   let total = 0;
   metadata.forEach( (pic) => {
-    total = total + parseInt(pic.duration);
+    total = total + pic.duration;
   });
 
   return total;
@@ -26,10 +26,10 @@ function loadPictures(url) {
     if (req.readyState === XMLHttpRequest.DONE) {
       if (req.status === 200) {
         let metadata = JSON.parse(req.responseText);
-        metadata.pictures.forEach(displaySlide);
         let totalTime = getTotalTimeout(metadata.pictures);
-        console.log(totalTime);
-        window.setTimeout(() => { loadPictures(url); }, totalTime);
+        setTimeout(loadPictures, totalTime);
+        timeout = 0;
+        metadata.pictures.forEach(displaySlide);
       }
     }
   }
