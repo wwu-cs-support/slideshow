@@ -21,8 +21,8 @@ def upload_picture():
         duration = 5000
         order = 1
         pic=request.files['file']
-        duration=int(request.form['duration'])
-        order=request.form['order']
+        duration=int(request.form.get('duration') or 5000)
+        order=int(request.form.get('order') or 1)
 
         if pic and allowed_file(pic.filename):
             filename = secure_filename(pic.filename)
@@ -35,10 +35,7 @@ def upload_picture():
             with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
                 metadata = json.load(json_file)
                 json_file.seek(0)
-                if order != "last":
-                    metadata['pictures'].insert((int(order)-1), entry)
-                else:
-                    metadata['pictures'].insert(len(metadata['pictures']), entry)
+                metadata['pictures'].insert((int(order)-1), entry)
                 json.dump(metadata, json_file, indent=2)
 
             return render_template('success.html', filename=filename)
@@ -63,4 +60,10 @@ def pictures():
 
 if __name__ == '__main__':
     debug = True if os.environ.get('SLIDESHOW_DEBUG') else False
+    if (not os.path.isfile(app.config['UPLOAD_METADATA']) or os.stat(app.config['UPLOAD_METADATA']).st_size==0):
+        json_string = '{"pictures": []}'
+        parsed_json = json.loads(json_string)
+        with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
+            json.dump(parsed_json, json_file, indent=2)
+
     app.run(debug=debug)
