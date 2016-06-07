@@ -62,8 +62,7 @@ if __name__ == '__main__':
     debug = True if os.environ.get('SLIDESHOW_DEBUG') else False
     if (not os.path.isfile(app.config['UPLOAD_METADATA']) or os.stat(app.config['UPLOAD_METADATA']).st_size==0):
         json_string = '{"pictures": []}'
-        parsed_json = json.loads(json_string)
         with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
-            json.dump(parsed_json, json_file, indent=2)
+            json_file.write(json_string)
 
     app.run(debug=debug)
