@@ -10,7 +10,7 @@ app_dir = os.path.join(os.path.dirname(__file__))
 
 app.config['UPLOAD_METADATA'] = os.path.join(app_dir, 'static/metadata.json')
 app.config['UPLOAD_FOLDER'] = os.path.join(app_dir, 'static/pictures')
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'GIF', 'gif', 'mov'}
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'gif', 'mov'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
@@ -38,7 +38,9 @@ def upload_picture():
                 metadata['pictures'].insert((int(order)-1), entry)
                 json.dump(metadata, json_file, indent=2)
 
-            return render_template('success.html', filename=filename)
+            pic_array = [metadata['pictures'][i]['path'] for i in range(len(metadata['pictures']))]
+
+            return render_template('success.html', pic_array=pic_array, filename=filename)
         else:
             return render_template('extension_error.html', extensions=app.config['ALLOWED_EXTENSIONS'])
     else:
