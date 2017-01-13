@@ -38,13 +38,23 @@ def upload_picture():
                 metadata['pictures'].insert((int(order)-1), entry)
                 json.dump(metadata, json_file, indent=2)
 
-            pic_array = [metadata['pictures'][i]['path'] for i in range(len(metadata['pictures']))]
-
-            return render_template('success.html', pic_array=pic_array, filename=filename)
+            return render_template('success.html', message="uploaded {} to ".format(filename))
         else:
             return render_template('extension_error.html', extensions=app.config['ALLOWED_EXTENSIONS'])
     else:
         return render_template('upload.html')
+
+@app.route('/reorder', methods=['POST', 'GET'])
+def reorder_picture():
+    if request.method == 'POST':
+        return render_template('success.html', message="changed the order of ")
+    else:
+        with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
+            metadata = json.load(json_file)
+
+        pic_array = [metadata['pictures'][i]['path'] for i in range(len(metadata['pictures']))]
+
+        return render_template('reorder.html', pic_array=pic_array)
 
 @app.route('/static/pictures/<filename>')
 def uploaded_file(filename):
