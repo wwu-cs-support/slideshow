@@ -21,7 +21,8 @@ def upload_picture():
         duration = 5000
         order = 1
         pic=request.files['file']
-        duration=int(request.form.get('duration') or 5000)
+        if request.form.get('duration'):
+            duration=int(request.form.get('duration'))*1000
         order=int(request.form.get('order') or 1)
 
         if pic and allowed_file(pic.filename.lower()):
