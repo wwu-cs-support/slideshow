@@ -21,8 +21,16 @@ def delete_picture():
         return render_template('delete.html')
     else:
         pic=request.form.get('filename')
-        print(pic)
-        return render_template('success.html', message="havent deleted anything yet from ")
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], pic)
+        metadata = json.load(open(app.config['UPLOAD_METADATA']))
+
+        for item in metadata['pictures']:
+            if item['path'] == filename:
+                metadata['pictures'].remove(item)
+        with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
+            json.dump(metadata, json_file, indent=2)
+
+        return render_template('success.html', message="deleted {} from ".format(pic))
 
 @app.route("/upload", methods=['POST', 'GET'])
 def upload_picture():
