@@ -18,19 +18,23 @@ def allowed_file(filename):
 @app.route("/delete", methods=['POST', 'GET'])
 def delete_picture():
     if request.method == 'GET':
-        return render_template('delete.html')
+        with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
+            metadata = json.load(json_file)
+
+        pic_array = [os.path.basename(metadata['pictures'][i]['path']) for i in range(len(metadata['pictures']))]
+        return render_template('delete.html', pic_array=pic_array)
     else:
-        pic=request.form.get('filename')
+        pic=request.form.get('piclist')
         filename = os.path.join(app.config['UPLOAD_FOLDER'], pic)
         metadata = json.load(open(app.config['UPLOAD_METADATA']))
 
         for item in metadata['pictures']:
             if item['path'] == filename:
                 metadata['pictures'].remove(item)
+                os.remove(filename)
         with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
             json.dump(metadata, json_file, indent=2)
 
-        os.remove(filename)
 
         return render_template('success.html', message="deleted {} from ".format(pic))
 

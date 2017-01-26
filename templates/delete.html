@@ -2,12 +2,16 @@
 <html>
     <title>Delete a Picture</title>
     <h1>Delete a Picture</h1>
-    <form action="" method=post enctype=multipart/form-data>
+    <form action="" method=post id="picform" enctype=multipart/form-data>
         <p>
-            <input type=text name=filename>
             <br><br>
-            Name of file you would like to delete.
+            Choose a file from the drop down menu that you would like to delete.
             <input type=submit value=Delete>
         </p>
     </form>
+
+    <select name="piclist" form="picform">
+        {%for item in pic_array %}
+            <option value="{{ item }}">{{ item }}</option>
+        {% endfor %}
 </html>
