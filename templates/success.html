@@ -6,7 +6,10 @@
 </head>
 <body>
     <h1>You have successfully {{ message }} the CS Slideshow!</h1>
-  <p>Click <a href="{{ url_for('upload_picture') }}">here</a> to upload a picture, <a href="{{ url_for('reorder_picture') }}">here</a> to change the order of the current slideshow or <a href="{{ url_for('slideshow') }}">here</a> to view the slideshow.</p>
+    <p>Click <a href="{{ url_for('upload_picture') }}">here</a> to upload a picture, 
+        <a href="{{ url_for('reorder_picture') }}">here</a> to change the order of the current slideshow, 
+        <a href="{{ url_for('delete_picture') }}">here</a> to delete a picture from the slideshow or 
+        <a href="{{ url_for('slideshow') }}">here</a> to view the slideshow.</p>
   <br>
 </body>
 </html>

@@ -10,7 +10,9 @@
     <script src="/static/js/reorder.js"></script>
 </head>
 <body>
-  <p>Click <a href="{{ url_for('upload_picture') }}">here</a> to upload a picture or <a href="{{ url_for('slideshow') }}">here</a> to view the slideshow.</p>
+  <p>Click <a href="{{ url_for('upload_picture') }}">here</a> to upload a picture,
+    <a href="{{ url_for('delete_picture') }}">here</a> to delete a picture
+    or <a href="{{ url_for('slideshow') }}">here</a> to view the slideshow.</p>
   <br>
   <p>If you would like to change the order of the pictures simply drag into an order you like and press submit. (The top picture will be displayed first and the bottom picture will be displayed last).</p>
 
