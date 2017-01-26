@@ -30,6 +30,8 @@ def delete_picture():
         with open(app.config['UPLOAD_METADATA'], 'w') as json_file:
             json.dump(metadata, json_file, indent=2)
 
+        os.remove(filename)
+
         return render_template('success.html', message="deleted {} from ".format(pic))
 
 @app.route("/upload", methods=['POST', 'GET'])
