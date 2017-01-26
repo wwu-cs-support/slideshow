@@ -15,6 +15,15 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'gif', 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
+@app.route("/delete", methods=['POST', 'GET'])
+def delete_picture():
+    if request.method == 'GET':
+        return render_template('delete.html')
+    else:
+        pic=request.form.get('filename')
+        print(pic)
+        return render_template('success.html', message="havent deleted anything yet from ")
+
 @app.route("/upload", methods=['POST', 'GET'])
 def upload_picture():
     if request.method == 'POST':
