@@ -15,6 +15,13 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tiff', 'tif', 'gif', 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
+def duplicate_file(filename):
+    metadata = json.load(open(app.config['UPLOAD_METADATA']))
+    for item in metadata['pictures']:
+        if os.path.basename(item['path']) == filename:
+            return True
+    return False
+
 @app.route("/delete", methods=['POST', 'GET'])
 def delete_picture():
     if request.method == 'GET':
@@ -48,7 +55,7 @@ def upload_picture():
             duration=int(request.form.get('duration'))*1000
         order=int(request.form.get('order') or 1)
 
-        if pic and allowed_file(pic.filename.lower()):
+        if pic and allowed_file(pic.filename.lower()) and not duplicate_file(pic.filename):
             filename = secure_filename(pic.filename)
             pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
