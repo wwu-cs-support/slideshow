@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <h1>Error: Extension not allowed</h1>
-        <h3>Allowed extensions are: </h3>
-        {% for ex in extensions %}
-        <p> {{ ex }} </p>
-        {% endfor %} 
-        <br>
-        <p>Click <a href="{{ url_for('upload_picture') }}">here</a> to return to the upload page</p>
-    </body>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/menubar.css">
+</head>
+<body>
+	<ul class="menu">
+		<li><a href="{{ url_for('slideshow') }}">View Slideshow</a></li>
+		<li><a href="{{ url_for('upload_picture') }}">Upload a Picture</a></li>
+		<li><a class="active" href="{{ url_for('reorder_picture') }}">Reorder Slideshow</a></li>
+		<li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
+	</ul>
+		<h1>Error: Extension not allowed</h1>
+		<h3>Allowed extensions are: </h3>
+		{% for ex in extensions %}
+		<p> {{ ex }} </p>
+		{% endfor %}
+		<br>
+		<p>Click <a href="{{ url_for('upload_picture') }}">here</a> to return to the upload page</p>
+</body>
 </html>
