@@ -18,14 +18,14 @@
 		<li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
 	</ul>
   <br>
-  <p>If you would like to change the order of the pictures simply drag into an order you like and press submit. (The top picture will be displayed first and the bottom picture will be displayed last).</p>
+  <p>If you would like to change the order of the pictures simply drag into an order you like and press submit. (The leftmost picture will be displayed first and the rightmost picture will be displayed last).</p>
 
   <ul id="sortable">
   {% for item in pic_array %}
     <li class="images"><img src="{{ item }}"></img></li>
   {% endfor %}
   </ul>
- 
+  <br><br><br><br><br><br>
   <form action="" method=post enctype=multipart/form-data>
     <br><br> 
     <input type=submit value=Submit>
