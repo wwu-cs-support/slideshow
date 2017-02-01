@@ -55,7 +55,11 @@ def upload_picture():
             duration=int(request.form.get('duration'))*1000
         order=int(request.form.get('order') or 1)
 
-        if pic and allowed_file(pic.filename.lower()) and not duplicate_file(pic.filename):
+        if not pic:
+            return render_template('extension_error.html', message="Could not read picture or picture doesn't exist", extensions=app.config['ALLOWED_EXTENSIONS'])
+        elif duplicate_file(pic.filename):
+            return render_template('extension_error.html', message="Filename already exists", extensions=app.config['ALLOWED_EXTENSIONS'])
+        elif allowed_file(pic.filename.lower()):
             filename = secure_filename(pic.filename)
             pic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
@@ -71,7 +75,7 @@ def upload_picture():
 
             return render_template('success.html', message="uploaded {} to ".format(filename))
         else:
-            return render_template('extension_error.html', extensions=app.config['ALLOWED_EXTENSIONS'])
+            return render_template('extension_error.html', message="Extension not allowed", extensions=app.config['ALLOWED_EXTENSIONS'])
     else:
         return render_template('upload.html')
 
