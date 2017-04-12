@@ -1,34 +1,38 @@
-<!DOCTYPE HTML>
-<html>
+{% extends "layout.html" %}
+{% block body %}
 <head>
-    <title>Reorder Pictures</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/static/css/menubar.css">
     <link rel="stylesheet" type="text/css" href="/static/css/success.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
     <script src="/static/js/reorder.js"></script>
 </head>
 <body>
-	<ul class="menu">
-		<li><a href="{{ url_for('slideshow') }}">View Slideshow</a></li>
-		<li><a href="{{ url_for('upload_picture') }}">Upload a Picture</a></li>
-		<li><a class="active" href="{{ url_for('reorder_picture') }}">Reorder Slideshow</a></li>
-		<li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
-	</ul>
-  <br>
-  <p>If you would like to change the order of the pictures simply drag into an order you like and press submit. (The leftmost picture will be displayed first and the rightmost picture will be displayed last).</p>
 
-  <ul class="sortableList" id="sortable">
-  {% for item in pic_array %}
-    <li class="images"><img src="{{ item }}"></img></li>
-  {% endfor %}
-  </ul>
-  <br><br><br><br><br><br>
-  <form action="" method=post enctype=multipart/form-data>
-    <br><br> 
+<ul class="menu">
+    <li><a href="{{ url_for('slideshow') }}">View Slideshow</a></li>
+    <li><a href="{{ url_for('upload_picture') }}">Upload a Picture</a></li>
+    <li><a class="active" href="{{ url_for('reorder_picture') }}">Reorder Slideshow</a></li>
+    <li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
+</ul>
+
+<br>
+<p>If you would like to change the order of the pictures simply drag into an order you like and press submit. (The leftmost picture will be displayed first and the rightmost picture will be displayed last).</p>
+
+<ul name="sortedList" class="sortableList" id="sortable">
+    {% for item in pic_array %}
+        <li class="images"><img src="{{ item }}"></img></li>
+    {% endfor %}
+</ul>
+
+<br><br><br><br><br><br><br><br>
+
+<form action="" method=post enctype=multipart/form-data>
     <input type=submit value=Submit>
-  </form>
+</form>
 </body>
-</html>
+{% endblock %}

@@ -82,6 +82,9 @@ def upload_picture():
 @app.route('/reorder', methods=['POST', 'GET'])
 def reorder_picture():
     if request.method == 'POST':
+        jsdata = request.form.getlist('listValues[]')
+        if jsdata:
+            print (jsdata)
         return render_template('success.html', message="changed the order of ")
     else:
         with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:

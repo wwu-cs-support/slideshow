@@ -1,25 +1,24 @@
-<!DOCTYPE HTML>
-<html>
-        <link rel="stylesheet" type="text/css" href="/static/css/menubar.css">
-    <title>Upload a Picture</title>
-	<ul class="menu">
-		<li><a href="{{ url_for('slideshow') }}">View Slideshow</a></li>
-		<li><a class="active" href="{{ url_for('upload_picture') }}">Upload a Picture</a></li>
-		<li><a href="{{ url_for('reorder_picture') }}">Reorder Slideshow</a></li>
-		<li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
-	</ul>
-    <h1>Upload a Picture</h1>
-    <form action="" method=post enctype=multipart/form-data>
-        <p>
-            <input type=file name=file>
-            <br><br>
-            Length of time in seconds you would like the picture to be displayed for. Default is 5 if no time is given.
-            <input type=text name=duration placeholder="5">
-            <br><br>
-            Where in the order would you like this picture to be displayed?
-            <input type=text name=order placeholder=1>
-            <br><br> 
-            <input type=submit value=Upload>
-        </p>
-    </form>
-</html>
+{% extends "layout.html" %}
+{% block body %}
+<ul class="menu">
+    <li><a href="{{ url_for('slideshow') }}">View Slideshow</a></li>
+    <li><a class="active" href="{{ url_for('upload_picture') }}">Upload a Picture</a></li>
+    <li><a href="{{ url_for('reorder_picture') }}">Reorder Slideshow</a></li>
+    <li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
+</ul>
+
+<h1>Upload a Picture</h1>
+<form action="" method=post enctype=multipart/form-data>
+    <p>
+        <input type=file name=file>
+        <br><br>
+        Length of time in seconds you would like the picture to be displayed for. Default is 5 if no time is given.
+        <input type=text name=duration placeholder="5">
+        <br><br>
+        Where in the order would you like this picture to be displayed?
+        <input type=text name=order placeholder=1>
+        <br><br>
+        <input type=submit value=Upload>
+    </p>
+</form>
+{% endblock %}
