@@ -84,7 +84,19 @@ def reorder_picture():
     if request.method == 'POST':
         jsdata = request.form.getlist('listValues[]')
         if jsdata:
-            print (jsdata)
+            entry = {}
+            entry['path'] = '' 
+            entry['duration'] = 2000
+            final = {}
+            final['pictures'] = []
+
+            for num in range(0, len(jsdata)):
+                entry['path'] = jsdata[num].split('"')[1]
+                final['pictures'].append(entry.copy())
+
+            with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
+                json.dump(final, json_file, indent=2)
+
         return render_template('success.html', message="changed the order of ")
     else:
         with open(app.config['UPLOAD_METADATA'], 'r+') as json_file:
