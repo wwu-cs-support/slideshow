@@ -1,8 +1,10 @@
-<!DOCTYPE HTML>
-<html>
-    <title>Success!</title>
-    <body>
-        <h1>You have successfully uploaded {{ filename }} to the CS Slideshow</h1>
-        <p>Click <a href="{{ url_for('upload_picture') }}">here</a> to upload another picture or <a href="{{ url_for('slideshow') }}">here</a> to view the slideshow.</p>
-    </body>
-</html>
+{% extends "layout.html" %}
+{% block body %}
+<ul class="menu">
+    <li><a href="{{ url_for('slideshow') }}">View Slideshow</a></li>
+    <li><a href="{{ url_for('upload_picture') }}">Upload a Picture</a></li>
+    <li><a href="{{ url_for('reorder_picture') }}">Reorder Slideshow</a></li>
+    <li><a href="{{ url_for('delete_picture') }}">Delete a Picture</a></li>
+</ul>
+<h2>You have successfully {{ message }} the CS Slideshow!</h2>
+{% endblock %}
