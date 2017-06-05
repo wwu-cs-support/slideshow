@@ -114,12 +114,6 @@ def uploaded_file(filename):
 def slideshow():
     return render_template('displaypic.html')
 
-@app.route("/pictures")
-def pictures():
-    with open(app.config['UPLOAD_METADATA'], 'r') as mf:
-        return Response(mf.read(), mimetype='application/json')
-
-
 if __name__ == '__main__':
     debug = True if os.environ.get('SLIDESHOW_DEBUG') else False
     if (not os.path.isfile(app.config['UPLOAD_METADATA']) or os.stat(app.config['UPLOAD_METADATA']).st_size==0):
