@@ -15,11 +15,17 @@ then visit `127.0.0.1:5000` in a browser to view the slideshow.
 #### Upload a picture 
 To add a picture or video to the slideshow visit `127.0.0.1:5000/upload`
 
+![Upload Screenshot](screenshots/upload.png)
+
 #### Delete a picture 
 To delete a picture or video to the slideshow visit `127.0.0.1:5000/delete`
 
+![Upload Screenshot](screenshots/delete.png)
+
 #### Reorder the slideshow
 To change the order of the slideshow visit `127.0.0.1:5000/reorder`
+
+![Upload Screenshot](screenshots/reorder.png)
 
 ### Structure
 The pictures and videos uploaded get stored in a folder called `pictures`. An example of what the directory structure looks like:
@@ -28,7 +34,7 @@ The pictures and videos uploaded get stored in a folder called `pictures`. An ex
 slideshow
 ├── static
     ├── pictures
-    ├── picture1.jpg
-    ├── pitcure2.jpg
-    ├── picture3.jpg
+        ├── picture1.jpg
+        ├── pitcure2.jpg
+        ├── picture3.jpg
 ```
