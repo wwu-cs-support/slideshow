@@ -110,6 +110,11 @@ def reorder_picture():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+@app.route("/pictures")
+def pictures():
+    with open(app.config['UPLOAD_METADATA'], 'r') as mf:
+        return Response(mf.read(), mimetype='application/json')
+
 @app.route("/")
 def slideshow():
     return render_template('displaypic.html')
